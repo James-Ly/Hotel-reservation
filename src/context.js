@@ -15,9 +15,22 @@ const RoomProvider = (props) => {
         return tempItems
     }
 
+    const getRoom = slug => {
+        let tempRooms = [...getRooms]
+        const room = tempRooms.find(room => {
+            return room.slug === slug
+        })
+        return room
+    }
+
+
     const [getRooms, setRooms] = useState([])
 
+    const [getSortedRooms, setSortedRooms] = useState([])
+
     const [getFeaturedRooms, setFeaturedRooms] = useState([])
+
+    const [getLoading, setLoading] = useState(false)
 
     // getData
     useEffect(() => {
@@ -31,7 +44,7 @@ const RoomProvider = (props) => {
 
 
     return (
-        <RoomContext.Provider value={{ ...getRooms}}>
+        <RoomContext.Provider value={{ getRooms, getFeaturedRooms, getLoading, getRoom }}>
             {props.children}
         </RoomContext.Provider>
     )

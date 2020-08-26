@@ -16,7 +16,7 @@ function App() {
       <Switch>
         <Route exact path="/" component={HomePage} />
         <Route exact path="/rooms/" component={RoomPage} />
-        <Route exact path="/single-room/:slug" component={SingleRoomPage} />
+        <Route exact path="/rooms/:slug" component={SingleRoomPage} />
         <Route path="/error/" component={ErrorPage} />
         <Redirect to='/error/'/>
       </Switch>
