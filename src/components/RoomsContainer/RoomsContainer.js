@@ -6,14 +6,14 @@ import { withRoomConsumer } from '../../context'
 import Aux from '../../utility/Aux/Aux'
 
 const RoomsContainer = props => {
-    const { getLoading, getSortedRooms, getRooms } = props.context
-    if (getLoading) {
+    const { loading, sortedRooms, rooms } = props.context
+    if (loading) {
         return <Loading />
     }
     return (
         <Aux>
-            <RoomsFilter rooms={getRooms} />
-            <RoomsList rooms={getRooms} />
+            <RoomsFilter rooms={rooms} />
+            <RoomsList rooms={sortedRooms} />
         </Aux>
     )
 
@@ -31,15 +31,15 @@ export default withRoomConsumer(RoomsContainer)
 //     return (
 //         <RoomConsumer>
 //             {value => {
-//                 const { getLoading, getRooms, getSortedRooms } = value
-//                 if (getLoading) {
+//                 const { loading, rooms, sortedRooms } = value
+//                 if (loading) {
 //                     return <Loading />
 //                 }
 //                 return (
 //                     <div>
 //                         Hello from rooms container
-//                         <RoomsFilter rooms={getRooms} />
-//                         <RoomsList rooms={getSortedRooms} />
+//                         <RoomsFilter rooms={rooms} />
+//                         <RoomsList rooms={sortedRooms} />
 //                     </div>
 //                 )
 //             }}

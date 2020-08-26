@@ -7,8 +7,8 @@ import Room from '../Room/Room'
 class FeaturedRooms extends Component {
     static contextType = RoomContext
     render() {
-        const { getRooms, getFeaturedRooms, getLoading } = this.context;
-        const rooms = getRooms.map(room => {
+        let { rooms, featuredRooms, loading } = this.context;
+        rooms = rooms.map(room => {
             return <Room key={room.id} room={room} />
         })
 
@@ -16,7 +16,7 @@ class FeaturedRooms extends Component {
             <section className='featured-rooms'>
                 <Titles title='Featured Rooms' />
                 <div className='featured-rooms-center'>
-                    {getLoading ? <Loading /> : rooms}
+                    {loading ? <Loading /> : rooms}
 
                 </div>
             </section>
