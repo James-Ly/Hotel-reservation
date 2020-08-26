@@ -4,7 +4,6 @@ import items from './data'
 const RoomContext = React.createContext()
 
 const RoomProvider = (props) => {
-
     const formatData = (items) => {
         let tempItems = items.map(item => {
             let id = item.sys.id
@@ -23,6 +22,13 @@ const RoomProvider = (props) => {
         return room
     }
 
+    const handleChange = event => {
+        const type = event.target.type
+        const name = event.target.name
+        const value = event.target.value
+        console.log(type, name, value)
+    }
+
 
     const [getRooms, setRooms] = useState([])
 
@@ -30,7 +36,25 @@ const RoomProvider = (props) => {
 
     const [getFeaturedRooms, setFeaturedRooms] = useState([])
 
-    const [getLoading, setLoading] = useState(false)
+    const [getLoading, setLoading] = useState(true)
+
+    const [getType, setType] = useState('all')
+
+    const [getCapacity, setCapacity] = useState(1)
+
+    const [getPrice, setPrice] = useState(0)
+
+    const [getminPrice, setminPrice] = useState(0)
+
+    const [getmaxPrice, setmaxPrice] = useState(0)
+
+    const [getminSize, setminSize] = useState(0)
+
+    const [getmaxSize, setmaxSize] = useState(0)
+
+    const [getBreakfast, setBreakfast] = useState(false)
+
+    const [getPets, setPets] = useState(false)
 
     // getData
     useEffect(() => {
@@ -40,11 +64,35 @@ const RoomProvider = (props) => {
     useEffect(() => {
         const featuredRooms = getRooms.filter(room => room.featured === true)
         setFeaturedRooms(featuredRooms)
+        setSortedRooms(getRooms)
+        setLoading(false)
+        setmaxPrice(Math.max(...getRooms.map(room => {
+            return room.price
+        })))
+        setmaxSize(Math.max(...getRooms.map(room => {
+            return room.size
+        })))
     }, [getRooms])
 
 
     return (
-        <RoomContext.Provider value={{ getRooms, getFeaturedRooms, getLoading, getRoom }}>
+        <RoomContext.Provider value={{
+            getRooms,
+            getFeaturedRooms,
+            getSortedRooms,
+            getLoading,
+            getType,
+            getCapacity,
+            getPrice,
+            getminPrice,
+            getmaxPrice,
+            getminSize,
+            getmaxSize,
+            getBreakfast,
+            getPets,
+            getRoom,
+            handleChange
+        }}>
             {props.children}
         </RoomContext.Provider>
     )
@@ -52,4 +100,13 @@ const RoomProvider = (props) => {
 
 const RoomConsumer = RoomContext.Consumer
 
-export { RoomProvider, RoomConsumer, RoomContext }
+const withRoomConsumer = Component => {
+    const ConsumerWrapper = props => {
+        return <RoomConsumer>
+            {value => <Component {...props} context={value} />}
+        </RoomConsumer>
+    }
+    return ConsumerWrapper
+}
+
+export { RoomProvider, RoomConsumer, RoomContext, withRoomConsumer }
