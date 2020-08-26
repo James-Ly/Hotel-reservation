@@ -2,11 +2,16 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import {BrowserRouter} from 'react-router-dom'
+import { BrowserRouter } from 'react-router-dom'
+import { RoomProvider } from './context'
 
 ReactDOM.render(
   <React.StrictMode>
-    <BrowserRouter><App /></BrowserRouter>
+    <RoomProvider>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </RoomProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

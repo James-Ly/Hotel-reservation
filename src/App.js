@@ -7,7 +7,6 @@ import SingleRoomPage from './container/SingleRoomPage/SingleRoomPage'
 import ErrorPage from './container/ErrorPage/ErrorPage.js'
 import Navbar from './components/Navbar/Navbar'
 
-
 import { Route, Switch, Redirect } from 'react-router-dom'
 
 function App() {
